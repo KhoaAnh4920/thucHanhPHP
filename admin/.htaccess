@@ -7,3 +7,4 @@ RewriteRule ^login_dologin.php$ index.php?controller=Login&action=dologin
 # Rewrite mode tin tuc #
 RewriteRule ^index.html index.php
 RewriteRule ^login.html login.php
+RewriteRule ^404.html 404.php

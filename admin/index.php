@@ -9,7 +9,6 @@ if (!isset($_SESSION['admin']))
 
 ?>
 
-
 <!DOCTYPE html>
 <head>
 <title>Trang chủ Admin</title>
