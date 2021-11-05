@@ -1,4 +1,6 @@
 <?php 
+include_once './config.php';//
+include_once './pdo.php';
 //ktra dang nhap. Neu chua -> login.html 
 if (!isset($_SESSION)) session_start();
 if (!isset($_SESSION['admin']))
@@ -6,6 +8,27 @@ if (!isset($_SESSION['admin']))
     header('location:login.php');
     exit;
 }
+
+/* 
+1./ ket noi (pdo)
+2./ viet sql 
+3./ thuc thi cau lenh prepare cua ket noi. return Statement 
+4./ Thuc thi cau lenh execute cua Statement (truyen vao mang tham so)
+5./ Xu ly ket qua: 
+	- insert, delete, update: thong bao so dong bi tac dong rowCount()
+	- select: lay cac dong trong db, duyet qua
+
+*/
+$sql="select sach.*, nhaxb.tennxb, loai.tenloai from sach, nhaxb, loai 
+where sach.manxb=nhaxb.manxb and sach.maloai=loai.maloai ";
+//$sql='select * from v_sach';
+$objStatement = $objPDO->prepare($sql);
+$objStatement->execute();
+$n = $objStatement->rowCount();
+
+$data = $objStatement->fetchAll(PDO::FETCH_OBJ);
+//$data = $objStatement->fetchAll(PDO::FETCH_ASSOC);
+//ECHO '<PRE>';print_r($data);
 
 ?>
 
@@ -38,8 +61,8 @@ include('./pages/header.php')
 	<section class="wrapper">
 		<div class="table-agile-info">
   <div class="panel panel-default">
-    <div class="panel-heading">
-      Liệt kê danh mục sản phẩm
+    <div class="panel-heading" style="padding-top:8px">
+      <h3>Danh muc sach. Co <?php echo $n ?> cuon</h3>
     </div>
     <div class="row w3-res-tb">
       <div class="col-sm-5 m-b-xs">
@@ -71,37 +94,34 @@ include('./pages/header.php')
                 <input type="checkbox"><i></i>
               </label>
             </th>
-            <th>Tên danh mục</th>
-            <th>Hiển thị</th>
+            <th>Ma sach</th>
+					  <th>Ten sach</th>
+					  <th>Nha XB</th>
+					  <th>Loai sach</th>
+					  <th>#</th>
             <th style="width:30px;"></th>
           </tr>
         </thead>
         <tbody>
+        <?php 
+				foreach($data as $k=>$row)
+				{
+					?> 
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td>Idrawfast prototype design prototype design prototype design prototype design prototype design</td>
-            <td><span class="text-ellipsis">{item.PrHelpText1}</span></td>
+            <td><?= $row->masach ?></td>
+            <td><?= $row->tensach ?></td>
+            <td><?= $row->tennxb ?></td>
+            <td><?= $row->tenloai ?></td>
+            
             <td>
-              <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
+              <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i></a>
+              <a href="sach_delete.php?masach=<?=$row->masach ?>"><i class="fa fa-times text-danger text"></i></a>
             </td>
           </tr>
-          <tr>
-            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td>Formasa</td>
-            <td>8c</td>
-            <td>
-              <a href="" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td>Avatar system</td>
-            <td>15c</td>
-            <td>
-              <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-            </td>
-          </tr>
-
+          <?php
+				}
+				?>
         </tbody>
       </table>
     </div>

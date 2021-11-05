@@ -1,4 +1,6 @@
 <?php 
+include_once './config.php';//
+include_once './pdo.php';
 //ktra dang nhap. Neu chua -> login.html 
 if (!isset($_SESSION)) session_start();
 if (!isset($_SESSION['admin']))
@@ -7,6 +9,16 @@ if (!isset($_SESSION['admin']))
     exit;
 }
 
+$sql="select sach.*, nhaxb.tennxb, loai.tenloai from sach, nhaxb, loai 
+where sach.manxb=nhaxb.manxb and sach.maloai=loai.maloai ";
+//$sql='select * from v_sach';
+$objStatement = $objPDO->prepare($sql);
+$objStatement->execute();
+$n = $objStatement->rowCount();
+
+$data = $objStatement->fetchAll(PDO::FETCH_OBJ);
+//$data = $objStatement->fetchAll(PDO::FETCH_ASSOC);
+//ECHO '<PRE>';print_r($data);
 ?>
 
 
@@ -43,24 +55,26 @@ include('./pages/head.php')
             <div class="col-lg-12">
                     <section class="panel">
                         <header class="panel-heading">
-                            Thêm danh mục sản phẩm
+                            Thêm danh mục sách
                         </header>
                         <div class="panel-body">
                             <div class="position-center">
-                                <form role="form">
+                                <form action="store.php" role="form" method="post">
                                 <div class="form-group">
-                                    <label for="tenDanhMuc">Tên danh mục</label>
+                                    <label for="tenDanhMuc">Tên sách</label>
                                     <input type="email" class="form-control" name="category_product_name" id="category_product_name" placeholder="Tên danh mục">
                                 </div>
                                 <div class="form-group">
-                                    <label for="moTaDanhMuc">Mô tả danh mục</label>
-                                    <textarea style="resize: none;" rows="5" class="form-control" name="category_product_desc" id="category_product_desc" placeholder="Mô tả danh mục"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="hienThi">Hiển thị</label>
+                                    <label for="hienThi">Nhà xuất bản</label>
                                     <select class="form-control input-sm m-bot15" name="category_product_status">
-                                        <option value="0">Ẩn</option>
-                                        <option value="1">Hiển thị</option>
+                                    <?php 
+                                    foreach($data as $k=>$row)
+				                    {
+					                ?>                                    
+                                        <option value="<?= $row->tennxb ?>"><?= $row->tennxb ?></option>                                  
+                                    <?php
+				                    }
+				                    ?>
                                     </select>
                                 </div>
         
