@@ -9,16 +9,6 @@ if (!isset($_SESSION['admin']))
     exit;
 }
 
-$sql="select sach.*, nhaxb.tennxb, loai.tenloai from sach, nhaxb, loai 
-where sach.manxb=nhaxb.manxb and sach.maloai=loai.maloai ";
-//$sql='select * from v_sach';
-$objStatement = $objPDO->prepare($sql);
-$objStatement->execute();
-$n = $objStatement->rowCount();
-
-$data = $objStatement->fetchAll(PDO::FETCH_OBJ);
-//$data = $objStatement->fetchAll(PDO::FETCH_ASSOC);
-//ECHO '<PRE>';print_r($data);
 ?>
 
 
@@ -67,7 +57,13 @@ include('./pages/head.php')
                                 <div class="form-group">
                                     <label for="hienThi">Nhà xuất bản</label>
                                     <select class="form-control input-sm m-bot15" name="category_product_status">
-                                    <?php 
+                                   // <?php 
+                                   //$sql="select sach.*, nhaxb.tennxb, loai.tenloai from sach, nhaxb, loai where sach.manxb=nhaxb.manxb and sach.maloai=loai.maloai ";
+                                   $sql='select * from nhaxb';
+                                   $objStatement = $objPDO->prepare($sql);
+                                   $objStatement->execute();
+                                   
+                                   $data = $objStatement->fetchAll(PDO::FETCH_OBJ);
                                     foreach($data as $k=>$row)
 				                    {
 					                ?>                                    
