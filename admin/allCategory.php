@@ -62,7 +62,7 @@ include('./pages/header.php')
 		<div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading" style="padding-top:8px">
-      <h3>Danh muc sach. Co <?php echo $n ?> cuon</h3>
+      <h3>Danh muc sach co <?php echo $n ?> cuon</h3>
     </div>
     <div class="row w3-res-tb">
       <div class="col-sm-5 m-b-xs">

@@ -1,11 +1,11 @@
 <?php
 if(!isset($_SESSION))
 	session_start();
-$email = isset($_POST['Email'])?$_POST['Email']:'';
+$u = isset($_POST['username'])?$_POST['username']:'';
 $p = isset($_POST['Password'])?$_POST['Password']:'';
 
-if($email == 'admin@gmail.com' && $p == '123456'){
-	$_SESSION['admin'] = $email;
+if($u == 'admin' && $p == '123456'){
+	$_SESSION['admin'] = $u;
 	header('location:index.php');
 	exit;
 }

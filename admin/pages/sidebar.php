@@ -12,11 +12,11 @@
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-th"></i>
-                        <span>Quản lý danh mục sản phẩm</span>
+                        <span>Quản lý danh mục sách</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="addCategory.php">Thêm danh mục sản phẩm</a></li>
-                        <li><a href="allCategory.php">Liệt kê danh mục sản phẩm</a></li>
+                        <li><a href="addCategory.php">Thêm danh mục sách</a></li>
+                        <li><a href="allCategory.php">Liệt kê danh mục sách</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">

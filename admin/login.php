@@ -10,7 +10,7 @@ include('./pages/head.php')
 <div class="w3layouts-main">
 	<h2>Đăng nhập</h2>
 		<form action="validationLogin.php" method="post">
-			<input type="text" class="ggg" name="Email" placeholder="E-MAIL" required="">
+			<input type="text" class="ggg" name="username" placeholder="USERNAME" required="">
 			<input type="password" class="ggg" name="Password" placeholder="PASSWORD" required="">
 			<span><input type="checkbox" />Remember Me</span>
 			<h6><a href="#">Quên mật khẩu?</a></h6>
